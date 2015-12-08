@@ -82,7 +82,7 @@ include_once("inc/header.php");
 
 
 if (isset($query_start_date) && isset($query_end_date)) {
-	echo "<h3><span class="glyphicon glyphicons-charts" aria-hidden="true"></span> Résultats :</h3>";
+	echo "<h3><span class='glyphicon glyphicons-charts' aria-hidden='true'></span> Résultats :</h3>";
 
 	$req = $bdd->prepare("SELECT  img_user_text AS uploader, COUNT(image.img_name) AS image_count
 						  FROM image, page, categorylinks
