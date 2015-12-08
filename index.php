@@ -59,16 +59,6 @@ include_once("inc/header.php");
 	<p>Cet outil donne un certain nombre de statistiques à propos des fichiers publiés sur <a href="https://commons.wikimedia.org">Wikimedia Commons</a>
 	avec le soutien de Wikimédia France sur une période de temps donnée, en se basant sur la catégorie
 	<a href="https://commons.wikimedia.org/wiki/Category:Media_supported_by_Wikimedia_France">Category:Media supported by Wikimedia France</a>.</p>
-
-	<div id="helpToggle" style="float: right;">[Cliquer pour afficher/cacher l'aide]</div>
-</div>
-
-<div id="helpSection" <?php if ( isset($_FILES["csv"])) { echo 'style="display: none;"';}?> >
-	<h3><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Aide</h3>
-	<!-- TODO : complete documentation -->
-	<ol>
-		<li>TODO</li>
-	</ol>
 </div>
 
 <!-- The query form -->
@@ -135,13 +125,5 @@ if (isset($query_start_date) && isset($query_end_date)) {
 			
 </div> <!-- End of container div -->
 
-<!--Specific Javascript for this page -->
-<script>
-$(document).ready(function(){
-	$("#helpToggle").click(function(){
-		$("#helpSection").toggle("slow");
-	});
-});
-</script>
 
 <?php include_once("inc/footer.php"); ?>
