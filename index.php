@@ -113,11 +113,23 @@ if (isset($query_start_date) && isset($query_end_date)) {
 	echo "<table class='table table-striped'>";
 	echo "<th><td>Contributeur</td><td>Photos</td></th>";
 	foreach ($data as $key => $value) {
-		$all_uploaders[] = $key;
-		$total_files+= $value;
-		echo "<tr><td>" . $key . "</td><td>" . $value . "</td></tr>";
+		$all_uploaders[] = $value['uploader'];
+		$total_files+= $value['image_count'];
+		echo "<tr><td><a href=\"https://commons.wikimedia.org/wiki/User:$value['uploader']\">". $value['uploader'] . "</a></td>
+		<td>" . $value['image_count'] . "</td></tr>";
 	}
 	echo "</table>";
+
+	echo "<p>Nombre de fichiers : " . $total_files . ".</p>";
+	echo "<p>Estimation du temps passé : " . $total_files * .2 . " h.</p>";
+
+	sort($all_uploaders);
+	echo "<h4>Liste brute des contributeurs</h4>";
+	echo "<textarea>";
+	foreach ($all_uploaders as $key => $value) {
+		echo "$value\n";
+	}
+	echo "</textarea>";
 }
 
 ?>
