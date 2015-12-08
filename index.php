@@ -3,6 +3,42 @@ session_start();
 
 include_once("lib/pageInterface.lib.php");
 $page= new pageInterface("Fichiers soutenus par Wikimédia France");
+
+$current_year = date("Y");
+$current_month = date("m");
+
+if ($current_month > 6) {
+	$year = $current_year;
+	$start_month = "01";
+	$end_month = "06";
+} else {		
+	$year = $current_year - 1;
+	$start_month = "06";
+	$end_month = "12";
+}
+
+$display_start_date = "$year-$start_month";
+$display_end_date = "$year-$end_month";
+
+if(isset($_REQUEST['submit'])) { 
+
+	$input_start_date = trim(htmlentities($_REQUEST['date-start']));
+	if (preg_match("/^\d{4}-\d{2}$/", $input_start_date)) {
+		$query_start_date = new DateTime($input_start_date . '-01 00:00:00' ); 
+		$display_start_date = $input_start_date;
+	} else {
+		$page->alert("La date de début doit être de la forme AAAA-MM","danger");
+	}
+
+	$input_end_date = trim(htmlentities($_REQUEST['date-end']));
+	if (preg_match("/\d{4}-\d{2}/", $input_end_date)) {
+		$query_end_date = new DateTime($input_end_date . '-01 23:59:59' ); 
+		$display_end_date = $input_end_date;
+	} else {
+		$page->alert("La date de fin doit être de la forme AAAA-MM","danger");
+	}
+}
+
 include_once("inc/header.php");
 ?>
 
@@ -25,49 +61,10 @@ include_once("inc/header.php");
 </div>
 
 <!-- The query form -->
-<h3><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Choix dans la date</h3>
+<h3><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Date</h3>
 
 <form role="form" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post" class="form-inline">
-<?php
-	$current_year = date("Y");
-	$current_month = date("m");
 
-	if ($current_month > 6) {
-		$year = $current_year;
-		$start_month = "01";
-		$end_month = "06";
-	} else {		
-		$year = $current_year - 1;
-		$start_month = "06";
-		$end_month = "12";
-	}
-
-	$display_start_date = "$year-$start_month";
-	$display_end_date = "$year-$end_month";
-
-	if(isset($_REQUEST['submit'])) { 
-
-		$input_start_date = trim(htmlentities($_REQUEST['date-start']));
-		if (preg_match("/^\d{4}-\d{2}$/", $input_start_date)) {
-			$query_start_date = new DateTime($input_start_date . '-01 00:00:00' ); 
-			$display_start_date = $input_start_date;
-		} else {
-			$page->alert("La date de début doit être de la forme AAAA-MM","danger");
-		}
-
-		$input_end_date = trim(htmlentities($_REQUEST['date-end']));
-		if (preg_match("/\d{4}-\d{2}/", $input_end_date)) {
-			$query_end_date = new DateTime($input_end_date . '-01 23:59:59' ); 
-			$display_end_date = $input_end_date;
-		} else {
-			$page->alert("La date de fin doit être de la forme AAAA-MM","danger");
-		}
-	} 
-
-
-
-
-?>
   <div class="form-group">
     <label for="date-start">Mois de début</label>
     <input type="text" class="form-control" id="date-start" name="date-start" value="<?php echo "$display_start_date"; ?>">
@@ -101,7 +98,7 @@ if (isset($query_start_date) && isset($query_end_date)) {
         'query_end_date'=> $query_end_date->format('YmtHis')
 	));
 
-	$data = $req->fetch();
+	$data = $req->fetchAll();
 	echo 'data: ';
 	print_r($data) ;
 }
