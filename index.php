@@ -90,10 +90,12 @@ try {
 }
 
 if (isset($query_start_date) && isset($query_end_date)) {
-	$req = $bdd->prepare("SELECT  COUNT(image.img_name) AS image_count
-	FROM image, page, categorylinks
-	WHERE page.page_id=categorylinks.cl_from AND image.img_name = page.page_title AND .categorylinks.cl_to = \"Media_supported_by_Wikimedia_France\"
-	AND img_timestamp BETWEEN :query_start_date AND :query_end_date ORDER BY image_count DESC;");
+	$req = $bdd->prepare("SELECT  img_user_text AS uploader, COUNT(image.img_name) AS image_count
+						  FROM image, page, categorylinks
+						  WHERE page.page_id=categorylinks.cl_from AND image.img_name = page.page_title
+						  AND .categorylinks.cl_to = \"Media_supported_by_Wikimedia_France\"
+						  AND img_timestamp BETWEEN :query_start_date AND :query_end_date GROUP BY uploader ORDER BY image_count DESC;");
+
 	$req->execute(array(
         'query_start_date' => $query_start_date->format('YmdHis'),
         'query_end_date'=> $query_end_date->format('YmtHis')
