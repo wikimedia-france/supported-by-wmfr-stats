@@ -102,7 +102,7 @@ if (isset($query_start_date) && isset($query_end_date)) {
 
 
 	echo "<table class='table table-striped'>\n";
-	echo "<thead><tr><th>Contributeur</th><th>Photos</th></tr></thead>\n<tbody>";
+	echo "<thead><tr><th>Contributeur</th><th>Photos</th></tr></thead>\n<tbody>\n";
 	foreach ($data as $key => $value) {
 		$all_uploaders[] = $value['uploader'];
 		$total_files+= $value['image_count'];
