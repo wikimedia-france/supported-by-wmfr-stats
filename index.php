@@ -110,6 +110,7 @@ if (isset($query_start_date) && isset($query_end_date)) {
 	$all_uploaders = array();
 	$total_files = 0;
 
+	/*
 	echo "<table class='table table-striped'>";
 	echo "<th><td>Contributeur</td><td>Photos</td></th>";
 	foreach ($data as $key => $value) {
@@ -129,7 +130,7 @@ if (isset($query_start_date) && isset($query_end_date)) {
 	foreach ($all_uploaders as $key => $value) {
 		echo "$value\n";
 	}
-	echo "</textarea>";
+	echo "</textarea>";//*/
 }
 
 ?>
