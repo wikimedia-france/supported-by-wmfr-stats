@@ -104,15 +104,13 @@ if (isset($query_start_date) && isset($query_end_date)) {
 	));
 
 	$data = $req->fetchAll();
-	echo 'data: ';
-	print_r($data) ;
 
 	$all_uploaders = array();
 	$total_files = 0;
 
 
 	echo "<table class='table table-striped'>";
-	echo "<th><td>Contributeur</td><td>Photos</td></th>";
+	echo "<tr><th>Contributeur</th><th>Photos</th></tr>";
 	foreach ($data as $key => $value) {
 		$all_uploaders[] = $value['uploader'];
 		$total_files+= $value['image_count'];
@@ -123,15 +121,15 @@ if (isset($query_start_date) && isset($query_end_date)) {
 
 	
 	echo "<p>Nombre de fichiers : " . $total_files . ".</p>";
-	echo "<p>Estimation du temps passé : " . $total_files * .2 . " h.</p>";
+	echo "<p>Estimation du temps passé : " . $total_files * .02 . " h.</p>";
 
 	sort($all_uploaders);
 	echo "<h4>Liste brute des contributeurs</h4>";
-	echo "<textarea>";
+	echo "<textarea class='form-control' rows='3'>";
 	foreach ($all_uploaders as $key => $value) {
 		echo "$value\n";
 	}
-	echo "</textarea>";//*/
+	echo "</textarea>";
 }
 
 ?>
