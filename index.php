@@ -4,6 +4,16 @@ session_start();
 include_once("lib/pageInterface.lib.php");
 $page= new pageInterface("Fichiers soutenus par Wikimédia France");
 
+# MySQL connection
+$ts_mycnf = parse_ini_file("/data/project/ash-dev/replica.my.cnf");
+
+try {
+        $bdd = new PDO('mysql:host=commonswiki.labsdb;dbname=commonswiki_p', $ts_mycnf['user'], $ts_mycnf['password']);
+} catch (Exception $e) {
+        die('Error: ' . $e->getMessage());
+}
+
+# Dates
 $current_year = date("Y");
 $current_month = date("m");
 
@@ -20,6 +30,7 @@ if ($current_month > 6) {
 $display_start_date = "$year-$start_month";
 $display_end_date = "$year-$end_month";
 
+# POST result handling
 if(isset($_REQUEST['submit'])) { 
 
 	$input_start_date = trim(htmlentities($_REQUEST['date-start']));
@@ -78,13 +89,7 @@ include_once("inc/header.php");
 
 <!-- If dates have been set, treat the request. -->
 <?php
-$ts_mycnf = parse_ini_file("/data/project/ash-dev/replica.my.cnf");
 
-try {
-        $bdd = new PDO('mysql:host=commonswiki.labsdb;dbname=commonswiki_p', $ts_mycnf['user'], $ts_mycnf['password']);
-} catch (Exception $e) {
-        die('Error: ' . $e->getMessage());
-}
 
 if (isset($query_start_date) && isset($query_end_date)) {
 	$req = $bdd->prepare("SELECT  img_user_text AS uploader, COUNT(image.img_name) AS image_count
@@ -101,6 +106,18 @@ if (isset($query_start_date) && isset($query_end_date)) {
 	$data = $req->fetchAll();
 	echo 'data: ';
 	print_r($data) ;
+
+	$all_uploaders = array();
+	$total_files = 0;
+
+	echo "<table class='table table-striped'>";
+	echo "<th><td>Contributeur</td><td>Photos</td></th>";
+	foreach ($data as $key => $value) {
+		$all_uploaders[] = $key;
+		$total_files+= $value;
+		echo "<tr><td>" . $key . "</td><td>" . $value . "</td></tr>";
+	}
+	echo "</table>";
 }
 
 ?>
