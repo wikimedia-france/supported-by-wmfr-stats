@@ -116,12 +116,12 @@ if (isset($query_start_date) && isset($query_end_date)) {
 	foreach ($data as $key => $value) {
 		$all_uploaders[] = $value['uploader'];
 		$total_files+= $value['image_count'];
-		echo "<tr><td><a href=\"https://commons.wikimedia.org/wiki/User:$value['uploader']\">". $value['uploader'] . "</a></td>
+		echo "<tr><td><a href='https://commons.wikimedia.org/wiki/User:" . $value['uploader'] . "'>". $value['uploader'] . "</a></td>
 		<td>" . $value['image_count'] . "</td></tr>";
 	}
 	echo "</table>";
 
-	/*
+	
 	echo "<p>Nombre de fichiers : " . $total_files . ".</p>";
 	echo "<p>Estimation du temps passé : " . $total_files * .2 . " h.</p>";
 
