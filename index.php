@@ -82,6 +82,8 @@ include_once("inc/header.php");
 
 
 if (isset($query_start_date) && isset($query_end_date)) {
+	echo "<h3><span class="glyphicon glyphicons-charts" aria-hidden="true"></span> Résultats :</h3>";
+
 	$req = $bdd->prepare("SELECT  img_user_text AS uploader, COUNT(image.img_name) AS image_count
 						  FROM image, page, categorylinks
 						  WHERE page.page_id=categorylinks.cl_from AND image.img_name = page.page_title
@@ -100,13 +102,13 @@ if (isset($query_start_date) && isset($query_end_date)) {
 
 
 	echo "<table class='table table-striped'>\n";
-	echo "<tr><th>Contributeur</th><th>Photos</th></tr>\n";
+	echo "<thead><tr><th>Contributeur</th><th>Photos</th></tr></thead>\n<tbody>";
 	foreach ($data as $key => $value) {
 		$all_uploaders[] = $value['uploader'];
 		$total_files+= $value['image_count'];
 		echo "<tr><td><a href='https://commons.wikimedia.org/wiki/User:" . $value['uploader'] . "'>". $value['uploader'] . "</a></td><td>" . $value['image_count'] . "</td></tr>\n";
 	}
-	echo "</table>\n\n";
+	echo "</tbody>\n</table>\n\n";
 
 	
 	echo "<p>Nombre de fichiers : " . $total_files . ".</p>\n";
