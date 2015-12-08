@@ -110,7 +110,7 @@ if (isset($query_start_date) && isset($query_end_date)) {
 	$all_uploaders = array();
 	$total_files = 0;
 
-	/*
+
 	echo "<table class='table table-striped'>";
 	echo "<th><td>Contributeur</td><td>Photos</td></th>";
 	foreach ($data as $key => $value) {
@@ -121,6 +121,7 @@ if (isset($query_start_date) && isset($query_end_date)) {
 	}
 	echo "</table>";
 
+	/*
 	echo "<p>Nombre de fichiers : " . $total_files . ".</p>";
 	echo "<p>Estimation du temps passé : " . $total_files * .2 . " h.</p>";
 
