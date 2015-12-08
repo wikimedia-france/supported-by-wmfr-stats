@@ -81,8 +81,14 @@ include_once("inc/header.php");
 
 <!-- If dates have been set, treat the request. -->
 <?php
+$ts_mycnf = parse_ini_file("/data/project/ash-dev/replica.my.cnf");
 
-/*
+try {
+        $bdd = new PDO('mysql:host=commonswiki.labsdb;dbname=commonswiki_p', $ts_mycnf['user'], $ts_mycnf['password']);
+} catch (Exception $e) {
+        die('Error: ' . $e->getMessage());
+}
+
 if (isset($query_start_date) && isset($query_end_date)) {
 	$req = $bdd->prepare("SELECT  COUNT(image.img_name) AS image_count
 	FROM image, page, categorylinks
@@ -93,8 +99,10 @@ if (isset($query_start_date) && isset($query_end_date)) {
         'query_end_date'=> $query_end_date->format('YmtHis')
 	));
 
-	echo $req;
-}*/
+	$data = $req->fetch();
+	echo 'data: ';
+	print_r($data) ;
+}
 
 ?>
 			
