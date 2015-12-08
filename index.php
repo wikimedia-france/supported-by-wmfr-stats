@@ -109,27 +109,26 @@ if (isset($query_start_date) && isset($query_end_date)) {
 	$total_files = 0;
 
 
-	echo "<table class='table table-striped'>";
-	echo "<tr><th>Contributeur</th><th>Photos</th></tr>";
+	echo "<table class='table table-striped'>\n";
+	echo "<tr><th>Contributeur</th><th>Photos</th></tr>\n";
 	foreach ($data as $key => $value) {
 		$all_uploaders[] = $value['uploader'];
 		$total_files+= $value['image_count'];
-		echo "<tr><td><a href='https://commons.wikimedia.org/wiki/User:" . $value['uploader'] . "'>". $value['uploader'] . "</a></td>
-		<td>" . $value['image_count'] . "</td></tr>";
+		echo "<tr><td><a href='https://commons.wikimedia.org/wiki/User:" . $value['uploader'] . "'>". $value['uploader'] . "</a></td><td>" . $value['image_count'] . "</td></tr>\n";
 	}
-	echo "</table>";
+	echo "</table>\n\n";
 
 	
-	echo "<p>Nombre de fichiers : " . $total_files . ".</p>";
-	echo "<p>Estimation du temps passé : " . $total_files * .02 . " h.</p>";
+	echo "<p>Nombre de fichiers : " . $total_files . ".</p>\n";
+	echo "<p>Estimation du temps passé : " . $total_files * .02 . " h.</p>\n";
 
 	sort($all_uploaders);
-	echo "<h4>Liste brute des contributeurs</h4>";
-	echo "<textarea class='form-control' rows='3'>";
+	echo "<h4>Liste brute des contributeurs</h4>\n";
+	echo "<textarea class='form-control' rows='" . count($all_uploaders) . "'>\n";
 	foreach ($all_uploaders as $key => $value) {
 		echo "$value\n";
 	}
-	echo "</textarea>";
+	echo "</textarea>\n";
 }
 
 ?>
