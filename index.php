@@ -80,8 +80,8 @@ include_once("inc/header.php");
 <!-- If dates have been set, treat the request. -->
 <?php
 if (isset($query_start_date) && isset($query_end_date)) {
-	echo "<h3><span class='glyphicon glyphicon glyphicon-list' aria-hidden='true'></span> Résultats</h3>";
-	
+	echo "<h3><span class='glyphicon glyphicon glyphicon-list' aria-hidden='true'></span> Résultats</h3>\n";
+
 	$req = $bdd->prepare("SELECT  img_user_text AS uploader, COUNT(image.img_name) AS image_count
 						  FROM image, page, categorylinks
 						  WHERE page.page_id=categorylinks.cl_from AND image.img_name = page.page_title
@@ -99,13 +99,13 @@ if (isset($query_start_date) && isset($query_end_date)) {
 	$total_files = 0;
 
 	echo "<table class='table table-striped'>\n";
-	echo "<thead><tr><th>Contributeur</th><th>Photos</th></tr></thead>\n<tbody>\n";
+	echo "\t<thead>\n\t\t<tr>\n\t\t\t<th>Contributeur</th>\n\t\t\t<th>Photos</th>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n";
 	foreach ($data as $key => $value) {
 		$all_uploaders[] = $value['uploader'];
 		$total_files+= $value['image_count'];
-		echo "<tr><td><a href='https://commons.wikimedia.org/wiki/User:" . $value['uploader'] . "'>". $value['uploader'] . "</a></td><td>" . $value['image_count'] . "</td></tr>\n";
+		echo "\t\t<tr>\n\t\t\t<td><a href='https://commons.wikimedia.org/wiki/User:" . $value['uploader'] . "'>". $value['uploader'] . "</a></td>\n\t\t\t<td>" . $value['image_count'] . "</td>\n\t\t</tr>\n";
 	}
-	echo "</tbody>\n</table>\n\n";
+	echo "\t</tbody>\n</table>\n\n";
 	
 	echo "<p>Nombre de fichiers : " . $total_files . ".</p>\n";
 	echo "<p>Estimation du temps passé : " . $total_files * .02 . " h.</p>\n";
