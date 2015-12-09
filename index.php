@@ -78,12 +78,9 @@ include_once("inc/header.php");
 </form>
 
 <!-- If dates have been set, treat the request. -->
+<h3><span class='glyphicon glyphicons-charts' aria-hidden='true'></span> Résultats</h3>
 <?php
-
-
 if (isset($query_start_date) && isset($query_end_date)) {
-	echo "<h3><span class='glyphicon glyphicons-charts' aria-hidden='true'></span> Résultats :</h3>";
-
 	$req = $bdd->prepare("SELECT  img_user_text AS uploader, COUNT(image.img_name) AS image_count
 						  FROM image, page, categorylinks
 						  WHERE page.page_id=categorylinks.cl_from AND image.img_name = page.page_title
@@ -100,7 +97,6 @@ if (isset($query_start_date) && isset($query_end_date)) {
 	$all_uploaders = array();
 	$total_files = 0;
 
-
 	echo "<table class='table table-striped'>\n";
 	echo "<thead><tr><th>Contributeur</th><th>Photos</th></tr></thead>\n<tbody>\n";
 	foreach ($data as $key => $value) {
@@ -109,7 +105,6 @@ if (isset($query_start_date) && isset($query_end_date)) {
 		echo "<tr><td><a href='https://commons.wikimedia.org/wiki/User:" . $value['uploader'] . "'>". $value['uploader'] . "</a></td><td>" . $value['image_count'] . "</td></tr>\n";
 	}
 	echo "</tbody>\n</table>\n\n";
-
 	
 	echo "<p>Nombre de fichiers : " . $total_files . ".</p>\n";
 	echo "<p>Estimation du temps passé : " . $total_files * .02 . " h.</p>\n";
@@ -126,6 +121,5 @@ if (isset($query_start_date) && isset($query_end_date)) {
 ?>
 			
 </div> <!-- End of container div -->
-
 
 <?php include_once("inc/footer.php"); ?>
