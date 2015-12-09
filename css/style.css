@@ -7,13 +7,6 @@ padding-bottom: 0 !important;
 padding-top: 0 !important;
 padding-bottom: 0 !important;
 }
-table {
-border-spacing: 10px;
-border-collapse: separate;
-}
-table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
-content: " \25B4\25BE";
-}
 
 /* Sticky footer styles
 -------------------------------------------------- */
