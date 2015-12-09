@@ -108,6 +108,7 @@ if (isset($query_start_date) && isset($query_end_date)) {
 	echo "\t</tbody>\n</table>\n\n";
 	
 	echo "<p>Nombre de fichiers : " . $total_files . ".</p>\n";
+	echo "<p>Nombre de contributeurs : " . count($all_uploaders) . ".</p>\n";
 	echo "<p>Estimation du temps passé : " . $total_files * .02 . " h.</p>\n";
 
 	sort($all_uploaders);
